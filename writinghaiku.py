@@ -1,18 +1,17 @@
 import re
-def writehaiku(file_name):
-    flag = True
-    while flag == True:
-        line1 = input("Please input your first line!\n")
-        sylcounter = 0
-        txtsplit = line1.split()
+
+def counter(line, sylneed):
+        sylcheck = 0
+        txtsplit = line.split()
         for item in txtsplit:
-            sylcounter += sylco(item)
-        if sylcounter != 5:
-            print(f"There was too many syllables! You did {sylcounter} syllables")
+            sylcheck += sylco(item)
+        if sylcheck != sylneed:
+            print(f"There wasn't the right amount of syllables! You did {sylcheck} syllables")
+            return -1
         else:
             print("Perfect!")
             flag = False
-    
+            return sylcheck, flag
 
 def sylco(word) :
     word = word.lower()
@@ -139,4 +138,19 @@ def sylco(word) :
 
     # calculate the output
     return numVowels - disc + syls
-writehaiku("hello")
+
+def writehaiku(file_name):
+    flag = True
+    while flag == True:
+        line1 = input("Please input your first line!\n")
+        tempcounter, flag = counter(line1, 5)
+    flag = True
+    while flag == True:
+        line2 = input("Please input your second line! \n")
+        tempcounter, flag = counter(line2, 7)
+    flag = True
+    while flag == True:
+        line3 = input("Please input your third line! \n")
+        tempcounter, flag = counter(line3, 5)
+    finalhaiku = ("Title:"+file_name+"\n\n"+line1+"\n"+line2+"\n"+line3)
+    return finalhaiku
